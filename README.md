@@ -1,55 +1,69 @@
-<h1 align="center">🌀 sene25 - Bay m'necraft</h1>
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=24&pause=1000&color=00FFB3&center=true&vCenter=true&width=435&lines=Kod+yazmak+bir+eğlencedir+🧙‍♂️;Linux%E2%9C%94%EF%B8%8FPython%E2%9C%94%EF%B8%8FWeb+Dev%E2%9C%94%EF%B8%8F;Merak+et%2C+ara%C5%9Ft%C4%B1r%2C+in%C5%9Fa+et!+%F0%9F%9A%80" alt="Typing SVG" />
-</p>
+<h1>Merhaba 👋</h1>  
+<p>Ben <strong>sene25</strong></p>
 
-<p align="center">
-  <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="480" alt="coding gif"/>
-</p>
 
----
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Top Sektirme Oyunu</title>
+  <style>
+    canvas {
+      background: #f0f0f0;
+      display: block;
+      margin: 50px auto;
+      border: 2px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game" width="400" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
 
-### 🧑‍💻 Hakkımda
+    let x = canvas.width / 2;
+    let y = canvas.height / 2;
+    let dy = 2;
+    let gravity = 0.4;
+    let bounce = -8;
+    const radius = 20;
 
-- 🧠 **Python**, **HTML/CSS**, **C**, **Linux** ve biraz da **JavaScript** ile ilgileniyorum  
-- 🌱 Şu anda kendimi geliştiriyorum: `Back-End`, `CLI Tool'lar`, `Linux sistem yönetimi`
-- ⚡ Hedefim: Katkı vermek, öğrenmek, üretmek!
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = "red";
+      ctx.fill();
+      ctx.closePath();
+    }
 
----
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBall();
 
-### 🛠️ Kullandığım Teknolojiler
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=py,html,css,js,linux,c" />
-</p>
+      dy += gravity;
+      y += dy;
 
----
+      if (y + radius > canvas.height) {
+        y = canvas.height - radius;
+        dy = bounce;
+      }
 
-### 🌐 Sosyal Medya & İletişim
+      requestAnimationFrame(draw);
+    }
 
-<p align="center">
-  <a href="https://twitter.com/" target="_blank">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" />
-  </a>
-  <a href="https://discord.com/users/yourid" target="_blank">
-    <img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white" />
-  </a>
-  <a href="mailto:31@gmail.com">
-    <img src="https://img.shields.io/badge/Mail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" />
-  </a>
-</p>
+    canvas.addEventListener("click", function(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      const dist = Math.sqrt((mx - x) ** 2 + (my - y) ** 2);
 
----
+      if (dist < radius) {
+        dy = bounce;
+      }
+    });
 
-###
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/abulomer/abulomer/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/abulomer/abulomer/output/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/abulomer/abulomer/output/pacman-contribution-graph.svg">
-</picture>
-
-###
-
-### ✨ Küçük Not
-> “Öğren,Öğren,daha çok Öğren...” – Bilinmeyen Bir Geliştirici
-
+    draw();
+  </script>
+</body>
+</html>
